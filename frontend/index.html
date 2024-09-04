@@ -149,6 +149,7 @@
                 const result = await response.json();
 
                 if (result.ok) {
+                    const htmlContent = result.ok.replace('<html>', '').replace('</html>', '');
                     marked.setOptions({
                         highlight: function(code, lang) {
                             const language = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -157,7 +158,7 @@
                         langPrefix: 'hljs language-'
                     });
 
-                    output.innerHTML = marked.parse(result.ok);
+                    output.innerHTML = marked.parse(htmlContent);
                     errorMessage.textContent = '';
                 } else {
                     throw new Error(result.err);

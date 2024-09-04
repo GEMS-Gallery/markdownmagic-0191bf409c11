@@ -11,7 +11,7 @@ actor {
     try {
       // In a real implementation, we would process the Markdown here
       // For this example, we'll just return the original text
-      #ok(text)
+      #ok("<html>" # text # "</html>")
     } catch (e) {
       #err(Error.message(e))
     }
