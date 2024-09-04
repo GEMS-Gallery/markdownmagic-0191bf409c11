@@ -1,4 +1,5 @@
 service : {
   downloadHTML: (text) -> (text);
   formatMarkdown: (text) -> (text);
+  viewFormattedMarkdown: (text) -> (text);
 }
