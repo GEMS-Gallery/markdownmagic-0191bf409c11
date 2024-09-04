@@ -112,6 +112,7 @@
     </style>
 </head>
 <body>
+    <h1>Markdown Formatter</h1>
     <div class="button-container">
         <button onclick="formatMarkdown()">Format Markdown</button>
         <button onclick="downloadHTML()">Download Formatted HTML</button>
@@ -119,10 +120,12 @@
     </div>
     <div class="container">
         <div class="input-area">
-            <textarea id="markdown-input" placeholder="Enter your markdown here..."></textarea>
+            <textarea id="markdown-input" placeholder="Enter your markdown here..."># Welcome
+
+This is a sample markdown text. Start typing to see the formatted output.</textarea>
         </div>
         <div class="output-area">
-            <div id="formatted-output"></div>
+            <div id="formatted-output">Loading...</div>
         </div>
     </div>
     <div id="error-message" class="error-message"></div>
@@ -134,6 +137,7 @@
             const errorMessage = document.getElementById('error-message');
             
             try {
+                output.innerHTML = 'Formatting...'; // Show loading state
                 const response = await fetch('/api/formatMarkdown', {
                     method: 'POST',
                     headers: {
@@ -166,6 +170,7 @@
             } catch (error) {
                 console.error('Error:', error);
                 errorMessage.textContent = `An error occurred: ${error.message}. Please try again.`;
+                output.innerHTML = 'Error occurred while formatting. Please try again.';
             }
         }
 
@@ -174,6 +179,7 @@
             const errorMessage = document.getElementById('error-message');
             
             try {
+                errorMessage.textContent = 'Preparing download...'; // Show loading state
                 const response = await fetch('/api/downloadHTML', {
                     method: 'POST',
                     headers: {
@@ -198,7 +204,7 @@
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
-                    errorMessage.textContent = '';
+                    errorMessage.textContent = 'Download complete!';
                 } else {
                     throw new Error(result.err);
                 }
@@ -213,6 +219,7 @@
             const errorMessage = document.getElementById('error-message');
             
             try {
+                errorMessage.textContent = 'Preparing view...'; // Show loading state
                 const response = await fetch('/api/viewFormattedMarkdown', {
                     method: 'POST',
                     headers: {
