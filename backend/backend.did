@@ -1,5 +1,10 @@
+type Result = 
+ variant {
+   err: text;
+   ok: text;
+ };
 service : {
-  downloadHTML: (text) -> (text);
-  formatMarkdown: (text) -> (text);
-  viewFormattedMarkdown: (text) -> (text);
+  downloadHTML: (text) -> (Result);
+  formatMarkdown: (text) -> (Result);
+  viewFormattedMarkdown: (text) -> (Result);
 }
